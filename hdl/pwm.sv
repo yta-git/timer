@@ -30,22 +30,7 @@ module pwm(
       counter = flag ? counter - 1 : counter + 1;
       led_ctrl = counter < threshold ? 0 : 1;
 
-      
-/*
-      delay = delay + 1;
-
-
-      if(delay == 100) begin
-	 if(counter == 255) flag = 1;
-	 if(counter == 1) flag = 0;
-	 counter = flag ? counter - 1 : counter + 1;
-	 delay = 0;	 
-      end
-      
-      if(counter == 0) led_ctrl = 0; 
-      else led_ctrl = test % counter ? 1: 0;	 
- */
-end
+   end
 
 endmodule // pwm
 
