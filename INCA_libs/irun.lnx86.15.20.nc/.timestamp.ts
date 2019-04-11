@@ -1,9 +1,0 @@
-1554804707 /home/yukawa/Desktop/axusb-template/hdl/seg_ctrl.sv
-1554792534 /home/yukawa/Desktop/axusb-template/hdl/min.sv
-1554792837 /home/yukawa/Desktop/axusb-template/hdl/hour.sv
-1552898428 /home/yukawa/Desktop/axusb-template/hdl/keypad_ctrl.sv
-1554799143 /home/yukawa/Desktop/axusb-template/hdl/sec.sv
-1554958062 /home/yukawa/Desktop/axusb-template/hdl/axusb.sv
-1554958409 /home/yukawa/Desktop/axusb-template/hdl/pwm.sv
-1554949275 /home/yukawa/Desktop/axusb-template/hdl/tester.sv
-1554954758 /home/yukawa/Desktop/axusb-template/hdl/slow_clock.sv
