@@ -1,26 +1,31 @@
 module minute(
-	      input logic      sec,
-	      output logic     minute,
-	      output logic [5:0] r_minute
+	      input logic 	 carry_from_sec,
+	      output logic 	 carry_for_hour,
+	      output logic [5:0] r_minute,
+	      input logic [5:0]  set_minute,
+	      input logic 	 set
 	      );
-
-   reg [5:0] 		       counter;
    
    initial begin
-      minute = 0;
+      carry_for_hour = 0;
       r_minute = 0;
-      counter = 0;      
    end
 
-   always @ (posedge sec) begin
+   always @ (posedge carry_from_sec or posedge set) begin
 
-      counter = counter + 1;     
-      minute = 0;
-      
-      if(counter == 60) begin
-	 r_minute = (r_minute == 59 ? 0 : r_minute + 1);
-	 minute = 1; 
-	 counter = 0;
+      if(set) r_minute = set_minute;
+      else begin
+
+	 r_minute = r_minute + 1;	 
+	 carry_for_hour = 0;
+	 
+	 if(r_minute == 60) begin
+
+	    r_minute = 0;
+	    carry_for_hour = 1;
+	    
+	 end
+	 
       end
       
    end

@@ -33,12 +33,19 @@ module axusb(
    wire 			 snd_ax_sp, syn_ax_sp;
    wire [3:0] 			 raw_keyout;
    wire [4:0] 			 key_code;
-   wire [15:0] 			 key_bitmap;
+   wire [15:0] 			 key_bitmap, bitmap;
 
-   wire 			 sec_wire, minute_wire, hour_wire, sclk, ssclk, led_ctrl;
-   wire [5:0] 			 r_sec, r_minute; 			 
-   wire [4:0] 			 r_hour;
+   wire 			 carry_for_minute, carry_for_hour, sec_p, sclk, ssclk, led_ctrl;
+   wire [5:0] 			 r_sec, r_minute;
+   wire [4:0] 			 r_hour;   
    wire [7:0] 			 seg_db, seg_sel;
+
+   // master
+   wire [4:0] 			 setH, timerH;
+   wire [5:0] 			 setM, timerM;
+   wire 			 set, run_enable;
+   wire [3:0] 			 status;      
+   
    
    // *** Register definition
 
@@ -49,20 +56,26 @@ module axusb(
    assign ax_keyout[1] = (raw_keyout[1] ? 1'bz : 1'b0);
    assign ax_keyout[0] = (raw_keyout[0] ? 1'bz : 1'b0);
    
-   assign ax_led = (led_ctrl ? 16'b1111111111111111 : 16'b0000000000000000);
+   assign ax_led = bitmap; //(led_ctrl ? 16'b1111111111111111 : 16'b0000000000000000);
    assign ax_seg_db = seg_db;
    assign ax_seg_sel = seg_sel;
    
 
    keypad_ctrl keypad_ctrl(mclk, ax_keyin, raw_keyout, key_code, key_bitmap);
    
-   sec sec(mclk, 1'b1, sec_wire, r_sec);
-   minute minute(sec_wire, minute_wire, r_minute);
-   hour hour(minute_wire, hour_wire, r_hour);
-   seg_ctrl seg_ctrl(ssclk, r_hour, r_minute, r_sec, seg_sel, seg_db);
+   sec sec(mclk, run_enable, carry_for_minute, r_sec, sec_p);
+   minute minute(carry_for_minute, carry_for_hour, r_minute, setM, set);
+   hour hour(carry_for_hour, r_hour, setH, set);
+   
+    seg_ctrl seg_ctrl(ssclk, r_hour, r_minute, timerH, timerM, status, seg_sel, seg_db, sec_p);
+//   seg_ctrl seg_ctrl(ssclk, key_code, r_minute, r_sec, seg_sel, seg_db);
 
    slow_clock slow_clock(mclk, sclk);
    super_slow_clock super_slow_clock(mclk, ssclk);
+   
    pwm pwm(sclk, led_ctrl);
+
+   master master(mclk, key_code, setH, setM, set, timerH, timerM, run_enable, status, bitmap);
+   
       
 endmodule
