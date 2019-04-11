@@ -15,7 +15,6 @@ module master(
    reg [4:0] 			  key_old;
    reg 				  key_valid;
 
-   
    initial begin
       nowH = 0;
       nowM = 0;
@@ -26,7 +25,7 @@ module master(
       status = 0;
       key_old = 9;
       key_valid = 0;
-      bitmap = 0;
+      bitmap = 1;
    end
    
 
@@ -47,7 +46,7 @@ module master(
 	 status = 0;
 	 key_old = 1;
 	 key_valid = 0;
-	 bitmap = 0;
+	 bitmap = 1;
       end
 	 
       if(status == 0) begin // set current Hour1	 
