@@ -1,0 +1,13 @@
+//
+// File created by:  irun
+// Do not modify this file
+//
+/home/yukawa/Desktop/axusb-template/hdl/axusb.sv
+/home/yukawa/Desktop/axusb-template/hdl/hour.sv
+/home/yukawa/Desktop/axusb-template/hdl/keypad_ctrl.sv
+/home/yukawa/Desktop/axusb-template/hdl/min.sv
+/home/yukawa/Desktop/axusb-template/hdl/pwm.sv
+/home/yukawa/Desktop/axusb-template/hdl/sec.sv
+/home/yukawa/Desktop/axusb-template/hdl/seg_ctrl.sv
+/home/yukawa/Desktop/axusb-template/hdl/slow_clock.sv
+/home/yukawa/Desktop/axusb-template/hdl/tester.sv

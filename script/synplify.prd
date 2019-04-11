@@ -1,0 +1,13 @@
+#-- Synopsys, Inc.
+#-- Version 9.6.2
+#-- Project file /net/nfs/home/sasaki/acer1/AX-USB/script/synplify.prd
+#-- Written on Tue Feb  5 15:26:40 2019
+
+#
+### Watch Implementation type ###
+#
+watch_impl -all
+#
+### Watch Implementation properties ###
+#
+watch_prop -clear

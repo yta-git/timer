@@ -1,0 +1,2 @@
+SOFTINCLUDE /home/share/Cadence/INCISIVE/152/tools/inca/files/cds.lib
+define worklib ../worklib

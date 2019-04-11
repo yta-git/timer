@@ -1,0 +1,18 @@
+//
+// File created by:  irun
+// Do not modify this file
+//
+-access
++rwc
++access+r
++define+USE_NCVLO
+hdl/axusb.sv
+hdl/hour.sv
+hdl/keypad_ctrl.sv
+hdl/min.sv
+hdl/pwm.sv
+hdl/sec.sv
+hdl/seg_ctrl.sv
+hdl/slow_clock.sv
+hdl/tester.sv
+-gui
