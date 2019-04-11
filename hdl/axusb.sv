@@ -49,7 +49,7 @@ module axusb(
    assign ax_keyout[1] = (raw_keyout[1] ? 1'bz : 1'b0);
    assign ax_keyout[0] = (raw_keyout[0] ? 1'bz : 1'b0);
    
-   assign ax_led = (led_ctrl ? 16'b1111111111110000 : 16'b0000000000000000);
+   assign ax_led = (led_ctrl ? 16'b1111111111111111 : 16'b0000000000000000);
    assign ax_seg_db = seg_db;
    assign ax_seg_sel = seg_sel;
    
