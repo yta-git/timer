@@ -20,8 +20,7 @@ module cmp(
 
    always @ (posedge mclk) begin
       
-      if(enable && nowH == timerH && nowM == timerM) equal = 1;
-      else equal = 0;
+      equal = enable && nowH == timerH && nowM == timerM;
 
    end
 
