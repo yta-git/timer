@@ -14,7 +14,7 @@ module hour(
       if(set) r_hour = set_hour;
       else begin
      
-	 r_hour = r_hour == 59 ? 0 : r_hour + 1;	  
+	 r_hour = r_hour == 23 ? 0 : r_hour + 1;	  
 	 
       end
       
