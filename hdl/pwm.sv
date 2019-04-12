@@ -1,6 +1,7 @@
 module pwm(
 	   input logic 	mclk,
-	   output logic led_ctrl
+	   output logic led_ctrl,
+	   input logic 	equal
 	   );
    
    reg [7:0] 		counter, delay, threshold;
@@ -19,33 +20,22 @@ module pwm(
 
    always @ (posedge mclk) begin
 
-      if(counter == 255) flag = 1;
-      if(counter == 0) begin
-	 flag = 0;
-	 if(threshold == 255) flag2 = 1;
-	 if(threshold == 0) flag2 = 0;
-	 threshold = flag2 ? threshold - 1 : threshold + 1;
-      end
-
-      counter = flag ? counter - 1 : counter + 1;
-      led_ctrl = counter < threshold ? 0 : 1;
-
+      led_ctrl = 1;
       
-/*
-      delay = delay + 1;
-
-
-      if(delay == 100) begin
+      if(equal) begin
 	 if(counter == 255) flag = 1;
-	 if(counter == 1) flag = 0;
+	 if(counter == 0) begin
+	    flag = 0;
+	    if(threshold == 255) flag2 = 1;
+	    if(threshold == 0) flag2 = 0;
+	    threshold = flag2 ? threshold - 1 : threshold + 1;
+	 end
+
 	 counter = flag ? counter - 1 : counter + 1;
-	 delay = 0;	 
-      end
+	 led_ctrl = counter < threshold ? 0 : 1;
+      end // if (equal)
       
-      if(counter == 0) led_ctrl = 0; 
-      else led_ctrl = test % counter ? 1: 0;	 
- */
-end
+   end
 
 endmodule // pwm
 

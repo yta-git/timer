@@ -1,26 +1,21 @@
 module hour(
-	    input logic        minute,
-	    output logic       hour,
-	    output logic [4:0] r_hour
+	    input logic        carry_from_minute,
+	    output logic [4:0] r_hour,
+	    input logic [4:0]  set_hour,
+	    input logic        set
 	    );
-
-   reg [5:0] 		       counter;
    
    initial begin
-      hour = 0;
       r_hour = 0;
-      counter = 0;      
    end
+   
+   always @ (posedge carry_from_minute or posedge set) begin
 
-   always @ (posedge minute) begin
-
-      counter = counter + 1;     
-      hour = 0;
-      
-      if(counter == 60) begin
-	 r_hour = (r_hour  == 23 ? 0 : r_hour + 1);
-	 hour = 1; 
-	 counter = 0;
+      if(set) r_hour = set_hour;
+      else begin
+     
+	 r_hour = r_hour == 59 ? 0 : r_hour + 1;	  
+	 
       end
       
    end
