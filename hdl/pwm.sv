@@ -33,7 +33,10 @@ module pwm(
 
 	 counter = flag ? counter - 1 : counter + 1;
 	 led_ctrl = counter < threshold ? 0 : 1;
-      end // if (equal)
+      end else begin // if (equal)
+	 counter = 0;
+	 threshold = 0;
+      end
       
    end
 
