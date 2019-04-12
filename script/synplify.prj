@@ -12,6 +12,7 @@ add_file -verilog -vlog_std sysv "../hdl/slow_clock.sv"
 add_file -verilog -vlog_std sysv "../hdl/super_slow_clock.sv"
 add_file -verilog -vlog_std sysv "../hdl/pwm.sv"
 add_file -verilog -vlog_std sysv "../hdl/master.sv"
+add_file -verilog -vlog_std sysv "../hdl/cmp.sv"
 
 
 

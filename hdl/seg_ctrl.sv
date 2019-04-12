@@ -29,18 +29,18 @@ module seg_ctrl(
       seg_sel = ~(8'b00000001 << status);
       
       case(status)
-	0: seg_db = get_seg(timerM % 10);
-	1: seg_db = get_seg(timerM / 10);
-	2: seg_db = get_seg(timerH % 10);
-	3: seg_db = get_seg(timerH /  10);
-	4: seg_db = get_seg(nowM % 10);
-	5: seg_db = get_seg(nowM / 10);
-	6: seg_db = flag ? get_seg(nowH % 10) | 8'b10000000 : get_seg(nowH % 10);
-	7: seg_db = get_seg(nowH / 10);
+	0: seg_db = master_status > 7 ? get_seg(timerM % 10) : flag && master_status == 7 ? 8'b00001000 : 8'b00000000;
+	1: seg_db = master_status > 6 ? get_seg(timerM / 10) : flag && master_status == 6 ? 8'b00001000 : 8'b00000000;
+	2: seg_db = master_status > 5 ? get_seg(timerH % 10) : flag && master_status == 5 ? 8'b00001000 : 8'b00000000;
+	3: seg_db = master_status > 4 ? get_seg(timerH / 10) : flag && master_status == 4 ? 8'b00001000 : 8'b00000000;
+	4: seg_db = master_status > 3 ? get_seg(nowM % 10) : flag && master_status == 3 ? 8'b00001000 : 8'b00000000;
+	5: seg_db = master_status > 2 ? get_seg(nowM / 10) : flag && master_status == 2 ? 8'b00001000 : 8'b00000000;
+	6: seg_db = master_status > 1 ? (flag && master_status == 8 ? get_seg(nowH % 10) | 8'b10000000 : get_seg(nowH % 10)) : (flag && master_status == 1 ? 8'b00001000 : 8'b00000000);
+	7: seg_db = master_status > 0 ? get_seg(nowH / 10): flag && master_status == 0 ? 8'b00001000 : 8'b00000000;
 	default: seg_db = 8'b00000010;//get_seg(6); //seg_db <= 8'b11001100;
       endcase // case (status)
       
-      status =(status == 7? 0 :  status + 1);
+      status = (status == 7? 0 :  status + 1);
       
    end
    

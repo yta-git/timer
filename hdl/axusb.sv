@@ -43,7 +43,7 @@ module axusb(
    // master
    wire [4:0] 			 setH, timerH;
    wire [5:0] 			 setM, timerM;
-   wire 			 set, run_enable;
+   wire 			 set, run_enable, equal;
    wire [3:0] 			 status;      
    
    
@@ -56,14 +56,14 @@ module axusb(
    assign ax_keyout[1] = (raw_keyout[1] ? 1'bz : 1'b0);
    assign ax_keyout[0] = (raw_keyout[0] ? 1'bz : 1'b0);
    
-   assign ax_led = bitmap; //(led_ctrl ? 16'b1111111111111111 : 16'b0000000000000000);
+   assign ax_led = (led_ctrl ? 16'b1111111111111111 : 16'b0000000000000000);
    assign ax_seg_db = seg_db;
    assign ax_seg_sel = seg_sel;
    
 
    keypad_ctrl keypad_ctrl(mclk, ax_keyin, raw_keyout, key_code, key_bitmap);
    
-   sec sec(mclk, run_enable, carry_for_minute, r_sec, sec_p);
+   sec sec(mclk, run_enable, carry_for_minute, r_sec, sec_p, set);
    minute minute(carry_for_minute, carry_for_hour, r_minute, setM, set);
    hour hour(carry_for_hour, r_hour, setH, set);
    
@@ -72,10 +72,11 @@ module axusb(
 
    slow_clock slow_clock(mclk, sclk);
    super_slow_clock super_slow_clock(mclk, ssclk);
-   
-   pwm pwm(sclk, led_ctrl);
 
-   master master(mclk, key_code, setH, setM, set, timerH, timerM, run_enable, status, bitmap);
+   cmp cmp(mclk, r_hour, r_minute, timerH, timerM, run_enable, equal);   
+   pwm pwm(sclk, led_ctrl, equal);
+
+   master master(mclk, key_code, setH, setM, set, timerH, timerM, run_enable, status); //, bitmap);
    
       
 endmodule

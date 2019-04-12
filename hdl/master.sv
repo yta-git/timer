@@ -9,7 +9,7 @@ module master(
 	      output logic [5:0]  timerM, 
 	      output logic 	  run_enable,
 	      output logic [3:0]  status,
-	      output logic [15:0] bitmap
+//	      output logic [15:0] bitmap
 	      );
 
    reg [4:0] 			  key_old;
@@ -25,7 +25,7 @@ module master(
       status = 0;
       key_old = 9;
       key_valid = 0;
-      bitmap = 1;
+//      bitmap = 1;
    end
    
 
@@ -39,18 +39,18 @@ module master(
       if(key_code == 1 && key_valid) begin
 	 nowH = 0;
 	 nowM = 0;
-	 set = 1;      
+	 set = 1;
 	 timerH = 0;
 	 timerM = 0;
 	 run_enable = 0;
 	 status = 0;
 	 key_old = 1;
 	 key_valid = 0;
-	 bitmap = 1;
+//	 bitmap = 1;
       end
 	 
       if(status == 0) begin // set current Hour1	 
-	 bitmap = 16'b1111111111111110;
+//	 bitmap = 16'b1111111111111110;
 	 
 	 if(get_real(key_code) <= 2 && key_valid) begin
 	    nowH = get_real(key_code) * 10;
@@ -59,7 +59,7 @@ module master(
 	 end
 	 
       end else if(status == 1) begin // set current Hour2
-	 bitmap = 16'b1111111111111101;
+//	 bitmap = 16'b1111111111111101;
 	 
 	 if(get_real(key_code) <= 9 && nowH + get_real(key_code) < 24 && key_valid) begin
 	    nowH = nowH + get_real(key_code);
@@ -68,7 +68,7 @@ module master(
 	 end
 	 
       end  else if(status == 2) begin // set current Minute1
-	 bitmap = 16'b1111111111111011;
+//	 bitmap = 16'b1111111111111011;
 	 
 	 if(get_real(key_code) < 6 && key_valid) begin
 	    nowM = get_real(key_code) * 10;
@@ -77,7 +77,7 @@ module master(
 	 end
 	 
       end else if(status == 3) begin // set current Minute2
-	 bitmap = 16'b1111111111110111;
+//	 bitmap = 16'b1111111111110111;
 	 
 	 if(get_real(key_code) <= 9 && nowM + get_real(key_code) < 60 && key_valid) begin
 	    nowM = nowM + get_real(key_code);
@@ -86,7 +86,7 @@ module master(
 	 end
 	 
       end else if(status == 4) begin // set timer Hour1
-	 bitmap = 16'b1111111111101111;
+//	 bitmap = 16'b1111111111101111;
 
 	 if(get_real(key_code) <= 2 && key_valid) begin      	    
 	    timerH = get_real(key_code) * 10;
@@ -94,7 +94,7 @@ module master(
 	 end
 
       end else if(status == 5) begin // set timer Hour1
-	 bitmap = 16'b1111111111011111;
+//	 bitmap = 16'b1111111111011111;
 	 
 	 if(get_real(key_code) <= 9 && timerH + get_real(key_code) < 24 && key_valid) begin
 	    timerH = timerH + get_real(key_code);
@@ -102,7 +102,7 @@ module master(
 	 end
 	 
       end  else if(status == 6) begin // set current Minute1
-	 bitmap = 16'b1111111110111111;
+//	 bitmap = 16'b1111111110111111;
 	 
 	 if(get_real(key_code) < 6 && key_valid) begin
 	    timerM = get_real(key_code) * 10;
@@ -110,7 +110,7 @@ module master(
 	 end
 	 
       end else if(status == 7) begin // set current Minute2
-	 bitmap = 16'b1111111101111111;
+//	 bitmap = 16'b1111111101111111;
 	 
 	 if(get_real(key_code) <= 9 &&timerM + get_real(key_code) < 60 && key_valid) begin
 	    timerM = timerM + get_real(key_code);
