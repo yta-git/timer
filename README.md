@@ -1,5 +1,5 @@
 # timer
-FPGA
+FPGAで動くように作ったタイマー
 
-# DLの仕方
-`git clone git@github.com:yta-git/timer.git` 
+現在時刻とアラーム時刻を入力後時間が経つとLEDがPWMで柔らかく光る
+
